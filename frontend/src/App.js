@@ -11,18 +11,26 @@ const App = () => {
   const showTodos = async () => {
     try {
       const { data } = await axios.get('/api/show/todos');
-      console.log(data);
       const todosWithUpdateAtNull = data.filter((todo) => todo.updateAt === null).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));;
       const todosWithUpdateAt = data.filter((todo) => todo.updateAt !== null).sort((a, b) => new Date(a.updateAt) - new Date(b.updateAt));
       const sortedList = [...todosWithUpdateAtNull, ...todosWithUpdateAt];
       setList(sortedList);
+      //setList(sortedList);
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
   }
 
   const handleChange = async (todoId) => {
+    try {
+      await axios.put(`/api/update/todo/${todoId}`);
     
+      showTodos();
+
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
@@ -33,22 +41,18 @@ const App = () => {
     <>
       <Header />
       <div className="container">
-       
 
         <table className='table'>
           <thead>
             <tr>
+            <th scope='col'>
+                N°
+              </th>
               <th scope='col'>
                 Title
               </th>
               <th scope='col'>
-                Description
-              </th>
-              <th scope='col'>
                 Craeted At
-              </th>
-              <th scope='col'>
-                update At
               </th>
               <th scope='col'>
                 Action
@@ -58,12 +62,10 @@ const App = () => {
           <tbody>
             {
               list && list.map((d) => (
-                <tr key={d.id} >
-                  <td >{d.title}</td>
-                  <td >{d.description}</td>
-                  <td >{moment(d.createdAt).format('DD-MM-YYYY HH:mm:ss')}</td>
-                  <td>{moment(d.updateAt).format('DD-MM-YYYY HH:mm:ss')}</td>
-
+                <tr key={d.id} className={d.status === 0 ? 'completed' : ''}>
+                  <td className={d.status === 0 ? 'completed' : ''}>{d.id}</td>
+                  <td className={d.status === 0 ? 'completed' : ''}>{d.title}</td>
+                  <td className={d.status === 0 ? 'completed' : ''}>{moment(d.createdAt).format('DD-MM-YYYY HH:mm:ss')}</td>
                   <td> <input
                     type="checkbox"
                     checked={d.status === 0}
