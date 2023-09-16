@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: mysql-egdadi.alwaysdata.net,
-    user: egdadi,
-    password: Y_eJ4wnpqdZ,
-    database: egdadi_todolist
+    host: 'mysql-egdadi.alwaysdata.net',
+    user: 'egdadi',
+    password: 'Y_eJ4wnpqdZ',
+    database: 'egdadi_todolist'
 });
 
 //DB_HOST=""
