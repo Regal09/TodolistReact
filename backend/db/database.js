@@ -1,11 +1,15 @@
-var mysql = require('mysql');
+var mysql = require('mysql2');
 
-var connection = mysql.createConnection({
-    host: 'mysql-egdadi.alwaysdata.net',
-    user: 'egdadi',
-    password: 'Y_eJ4wnpqdZ',
-    database: 'egdadi_todolist'
-});
+var url = 'mysql://root:amPfMATJckzjp8lxXEhI@containers-us-west-197.railway.app:6386/railway';
+
+var connection = mysql.createConnection(url);
+
+/*mysql.createConnection({
+    host: 'containers-us-west-197.railway.app',
+    user: 'root',
+    password: 'amPfMATJckzjp8lxXEhI',
+    database: 'railway'
+});*/
 
 //DB_HOST=""
 //DB_USERNAME=""
