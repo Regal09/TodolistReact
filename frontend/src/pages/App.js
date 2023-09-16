@@ -24,7 +24,7 @@ const App = () => {
 
   const handleChange = async (todoId) => {
     try {
-      await axios.put(`/api/update/todo/${todoId}`);
+      await axios.put(`https://todolistreact-backend-production.up.railway.app/api/update/todo/${todoId}`);
       showTodos();
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ const App = () => {
     }
 
     try {
-      await axios.post('/api/create/list', newTodo);
+      await axios.post('https://todolistreact-backend-production.up.railway.app/api/create/list', newTodo);
       setNewTodo({ title: '', description: '' });
 
       showTodos();
@@ -62,7 +62,7 @@ const App = () => {
 
   const handleDeleteTodo = async (todoId) => {
     try {
-      await axios.put(`/api/delete/todo/${todoId}`);
+      await axios.put(`https://todolistreact-backend-production.up.railway.app/api/delete/todo/${todoId}`);
       showTodos();
     } catch (err) {
       console.error(err);
