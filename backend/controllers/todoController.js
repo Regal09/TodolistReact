@@ -22,8 +22,8 @@ exports.createTable = (req, res) => {
 exports.createList = (req, res) => {
     const q = "INSERT INTO todos SET ?";
 
-    const { title, description, status } = req.body;
-
+    const { title, description } = req.body;
+    const status = 1;
     db.query(q, { title, description, status }, (err, result) => {
         if (err) return res.json(err);
         return res.status(200).json(result);
