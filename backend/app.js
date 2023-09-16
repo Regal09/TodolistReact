@@ -16,7 +16,13 @@ app.use(bodyParser.urlencoded({
     limit: "5mb",
     extended:true
 }));
-app.use(cors());
+app.use(cors(
+    {
+        origin:["http://localhost:3000", "todolist-react-6rcn.vercel.app"],
+        methods:["POST","GET","PUT"],
+        credentials:true
+    }
+));
 
 //ROUTE MIDDLEWARE
 
