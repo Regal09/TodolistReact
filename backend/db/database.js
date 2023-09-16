@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'todolist'
+    host: 'mysql-egdadi.alwaysdata.net',
+    user: 'egdadi',
+    password: 'Y_eJ4wnpqdZ;rpc',
+    database: 'egdadi_todolist'
 });
 
 connection.connect(error => {
