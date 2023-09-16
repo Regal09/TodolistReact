@@ -62,3 +62,11 @@ exports.updateTodo = (req, res) => {
     });
 
 }
+
+exports.getTodo = (req, res) => {
+    const q =  `SELECT * FROM todos WHERE id=${req.params.id}`;
+    db.query(q, (err, result) => {
+        if (err) return res.json(err);
+        return res.status(200).json(result);
+    });
+}

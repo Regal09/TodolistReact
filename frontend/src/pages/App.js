@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Header from './component/Header';
+import Header from '../component/Header';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const moment = require('moment');
 
 const App = () => {
   const [list, setList] = useState([]);
-  //const [checked, setChecked] = React.useState(false);
 
   const showTodos = async () => {
     try {
@@ -25,7 +25,7 @@ const App = () => {
   const handleChange = async (todoId) => {
     try {
       await axios.put(`/api/update/todo/${todoId}`);
-    
+
       showTodos();
 
     } catch (err) {
@@ -45,7 +45,7 @@ const App = () => {
         <table className='table'>
           <thead>
             <tr>
-            <th scope='col'>
+              <th scope='col'>
                 N°
               </th>
               <th scope='col'>
@@ -55,6 +55,9 @@ const App = () => {
                 Craeted At
               </th>
               <th scope='col'>
+                Details
+              </th>
+              <th scope='col'>
                 Action
               </th>
             </tr>
@@ -62,10 +65,13 @@ const App = () => {
           <tbody>
             {
               list && list.map((d) => (
-                <tr key={d.id} className={d.status === 0 ? 'completed' : ''}>
+                <tr key={d.id}>
                   <td className={d.status === 0 ? 'completed' : ''}>{d.id}</td>
                   <td className={d.status === 0 ? 'completed' : ''}>{d.title}</td>
                   <td className={d.status === 0 ? 'completed' : ''}>{moment(d.createdAt).format('DD-MM-YYYY HH:mm:ss')}</td>
+                  <td>
+                    <Link to={`/details/${d.id}`}>Voir les détails</Link>
+                  </td>
                   <td> <input
                     type="checkbox"
                     checked={d.status === 0}
