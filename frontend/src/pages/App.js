@@ -7,13 +7,13 @@ const moment = require('moment');
 
 const App = () => {
   const [list, setList] = useState([]);
-  const [newTodo, setNewTodo] = useState({ title: '', description: '' }); 
+  const [newTodo, setNewTodo] = useState({ title: '', description: '' });
 
   const showTodos = async () => {
     try {
       const { data } = await axios.get('/api/show/todos');
-      const todosWithUpdateAtNull = data.filter((todo) => todo.updateAt === null).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
-      const todosWithUpdateAt = data.filter((todo) => todo.updateAt !== null).sort((a, b) => new Date(a.updateAt) - new Date(b.updateAt));
+      const todosWithUpdateAtNull = data.filter((todo) => todo.updateAt === null && todo.finishAt === null).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));;
+      const todosWithUpdateAt = data.filter((todo) => todo.updateAt !== null && todo.finishAt === null).sort((a, b) => new Date(a.updateAt) - new Date(b.updateAt));
       const sortedList = [...todosWithUpdateAtNull, ...todosWithUpdateAt];
       setList(sortedList);
       console.log(data);
@@ -32,7 +32,7 @@ const App = () => {
   };
 
   const handleAddTodo = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (!newTodo.title.trim()) {
       alert("Le titre est obligatoire.");
@@ -55,11 +55,20 @@ const App = () => {
   const handleTitleChange = (e) => {
     setNewTodo({ ...newTodo, title: e.target.value });
   };
-  
+
   const handleDescriptionChange = (e) => {
     setNewTodo({ ...newTodo, description: e.target.value });
   };
-  
+
+  const handleDeleteTodo = async (todoId) => {
+    try {
+      await axios.put(`/api/delete/todo/${todoId}`);
+      showTodos();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   useEffect(() => {
     showTodos();
@@ -73,14 +82,14 @@ const App = () => {
           <form onSubmit={handleAddTodo}>
             <div className='form-wrapper' style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ flex: 1, marginRight: "10px" }}>
-                <input className='form-control' type='text' placeholder='title' name='title' value={newTodo.title} onChange={handleTitleChange}/>
+                <input className='form-control' type='text' placeholder='title' name='title' value={newTodo.title} onChange={handleTitleChange} />
               </div>
               <div style={{ flex: 3 }}>
-                
+
                 <textarea className="form-control" aria-label="description" placeholder='description' name='description' value={newTodo.description} onChange={handleDescriptionChange}></textarea>
               </div>
               <div>
-              <button type='submit' style={{ width: "200px", marginLeft: "10px", backgroundColor:"#2980b9" }}  className='btn btn-success'>Add</button>
+                <button type='submit' style={{ width: "200px", marginLeft: "10px", backgroundColor: "#2980b9" }} className='btn btn-success'>Add</button>
               </div>
             </div>
           </form>
@@ -102,6 +111,9 @@ const App = () => {
                 Details
               </th>
               <th scope='col'>
+                Delete
+              </th>
+              <th scope='col'>
                 Action
               </th>
             </tr>
@@ -115,6 +127,19 @@ const App = () => {
                   <td className={d.status === 0 ? 'completed' : ''}>{moment(d.createdAt).format('DD-MM-YYYY HH:mm:ss')}</td>
                   <td>
                     <Link to={`/details/${d.id}`}>See the details</Link>
+                  </td>
+                  <td>
+                    <button onClick={() => handleDeleteTodo(d.id)} 
+                    style={{
+                      backgroundColor: 'red',
+                      color: 'white',
+                      border: 'none',
+                      padding: '5px 10px',
+                      cursor: 'pointer',
+                      borderRadius:'5px'
+                    }}>
+                      Delete
+                    </button>
                   </td>
                   <td> <input
                     type="checkbox"

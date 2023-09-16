@@ -64,9 +64,19 @@ exports.updateTodo = (req, res) => {
 }
 
 exports.getTodo = (req, res) => {
-    const q =  `SELECT * FROM todos WHERE id=${req.params.id}`;
+    const q = `SELECT * FROM todos WHERE id=${req.params.id}`;
     db.query(q, (err, result) => {
         if (err) return res.json(err);
         return res.status(200).json(result);
     });
 }
+
+exports.deleteTodo = (req, res) => {
+    const currentMoment = new Date();
+    const finishAt = moment(currentMoment).format('YYYY-MM-DD HH:mm:ss');
+    const q = `UPDATE todos SET finishAt='${finishAt}' WHERE id=${req.params.id}`;
+        db.query(q, (err, result) => {
+            if (err) return res.json(err.message);
+            return res.status(200).json({ data: "todo deleted" });
+        });
+    }
