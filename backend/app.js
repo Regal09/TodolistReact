@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors(
     {
-        origin:["http://localhost:3000", "todolist-react-6rcn.vercel.app"],
+        origin:["http://localhost:3000", "https://todolist-react-6rcn.vercel.app"],
         methods:["POST","GET","PUT"],
         credentials:true
     }
