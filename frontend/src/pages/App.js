@@ -81,14 +81,14 @@ const App = () => {
         <div className='form' style={{ paddingBottom: "50px", paddingTop: "50px" }}>
           <form onSubmit={handleAddTodo}>
             <div className='form-wrapper' style={{ display: "flex", justifyContent: "space-between" }}>
-              <div style={{ flex: 1, marginRight: "10px" }}>
+              <div style={{ flex: 2, marginRight: "10px" }}>
                 <input className='form-control' type='text' placeholder='title' name='title' value={newTodo.title} onChange={handleTitleChange} />
               </div>
-              <div style={{ flex: 3 }}>
+              <div style={{ flex: 4 }}>
 
                 <textarea className="form-control" aria-label="description" placeholder='description' name='description' value={newTodo.description} onChange={handleDescriptionChange}></textarea>
               </div>
-              <div>
+              <div style={{flex: 1}}>
                 <button type='submit' style={{ width: "200px", marginLeft: "10px", backgroundColor: "#2980b9" }} className='btn btn-success'>Add</button>
               </div>
             </div>
