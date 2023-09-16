@@ -1,16 +1,16 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DBNAME
+    host: mysql-egdadi.alwaysdata.net,
+    user: egdadi,
+    password: Y_eJ4wnpqdZ,
+    database: egdadi_todolist
 });
 
-//DB_HOST="mysql-egdadi.alwaysdata.net"
-//DB_USERNAME="egdadi"
-//DB_PASSWORD="Y_eJ4wnpqdZ"
-//DB_DBNAME="egdadi_todolist"
+//DB_HOST=""
+//DB_USERNAME=""
+//DB_PASSWORD=""
+//DB_DBNAME=""
 
 connection.connect(error => {
     if(error) throw error;
