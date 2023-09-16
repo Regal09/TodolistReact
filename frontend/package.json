@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://todolistreact-backend-production.up.railway.app"
+  "proxy": "https://todolist-api-new.onrender.com"
 }
