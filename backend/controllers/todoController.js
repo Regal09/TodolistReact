@@ -12,7 +12,7 @@ exports.createDB = (req, res) => {
 }
 
 exports.createTable = (req, res) => {
-    let q = 'CREATE TABLE todos(id int AUTO_INCREMENT, title VARCHAR(255), description VARCHAR(255),status TINYINT(1), PRIMARY KEY(id))';
+    let q = 'CREATE TABLE todos(id int AUTO_INCREMENT, title VARCHAR(255), description VARCHAR(255),status TINYINT(1),createdAt DATETIME DEFAULT CURRENT_TIMESTAMP(), updateAt DATETIME, finishAt DATETIME, PRIMARY KEY(id))';
     db.query(q, (err, result) => {
         if (err) throw err;
         return res.status(201).json("TABLE TODOS CREATED");
